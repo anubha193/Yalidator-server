@@ -60,7 +60,7 @@ async function getMongoUrl() {
 }
 
 (async () => {
-  const mongoUrl = 'mongodb+srv://User123:Anubha88@@#@cluster0.fu8ny.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+  const mongoUrl = 'mongodb+srv://User123:c5ERP55WbEsskYCE@cluster0.fu8ny.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
   const dbName = 'fingerprintDB';
   const collectionName = 'records';
 
