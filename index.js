@@ -60,12 +60,12 @@ async function getMongoUrl() {
 }
 
 (async () => {
-  const mongoUrl = 'mongodb+srv://User123:Anubha88%40%40%23@cluster0.fu8ny.mongodb.net/?retryWrites=true&w=majority'; //'mongodb://127.0.0.1:27017';
+  const mongoUrl = 'mongodb+srv://User123:Anubha88%40%40%23@cluster0.fu8ny.mongodb.net/fingerprintDB?retryWrites=true&w=majority&appName=Cluster0'; //'mongodb://127.0.0.1:27017';
   const dbName = 'fingerprintDB';
   const collectionName = 'records';
 
   const client = new MongoClient(mongoUrl, {
-    ssl: true,
+    ssl: true
   });
   let db, collection;
 
