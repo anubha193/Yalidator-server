@@ -65,8 +65,6 @@ async function getMongoUrl() {
   const collectionName = 'records';
 
   const client = new MongoClient(mongoUrl, {
-    useNewUrlParser: true,
-  useUnifiedTopology: true,
     ssl: true
   });
   let db, collection;
@@ -99,6 +97,7 @@ async function getMongoUrl() {
       }
 
       let clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+      console.log(clientIp);
 
       if (req.method === 'POST') {
         let body = '';
