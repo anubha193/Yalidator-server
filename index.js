@@ -60,7 +60,7 @@ async function getMongoUrl() {
 }
 
 (async () => {
-  const mongoUrl = await getMongoUrl() //'mongodb://127.0.0.1:27017';
+  const mongoUrl = 'mongodb://127.0.0.1:27017';
   const dbName = 'fingerprintDB';
   const collectionName = 'records';
   console.log(mongoUrl);
