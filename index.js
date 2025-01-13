@@ -66,7 +66,6 @@ async function getMongoUrl() {
 
   const client = new MongoClient(mongoUrl, {
     ssl: true,
-    minTLSVersion: 'TLSv1.2'
   });
   let db, collection;
 
