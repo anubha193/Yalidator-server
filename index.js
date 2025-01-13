@@ -13,6 +13,7 @@ const corsMiddleware = cors({
 // Function to get the local IP address of the server
 function getLocalIP() {
   const interfaces = os.networkInterfaces();
+  console.log("interfaces" +interfaces);
   for (const interfaceName in interfaces) {
     const interfaceDetails = interfaces[interfaceName];
     for (const iface of interfaceDetails) {
@@ -38,16 +39,27 @@ async function getPublicIP() {
 // Determine whether we are on a remote server or localhost
 async function getMongoUrl() {
   try {
+    // Check if the server is running locally by inspecting the hostname
+    const localIP = getLocalIP();
+    console.log("localIP = "+localIP);
+    console.log("localIP = "+os.hostname());
+    if (localIP === '127.0.0.1' || localIP === '10.5.48.124') {
+      // It's a local environment, use the local MongoDB URL
+      return 'mongodb://127.0.0.1:27017';
+    }
+
+    // Otherwise, fetch the public IP for remote servers
     const publicIp = await getPublicIP();
+    console.log("publicIP = "+ publicIp);
     return `mongodb://${publicIp}:27017`; // Use public IP if available
   } catch (err) {
     console.error('Failed to fetch public IP. Falling back to local IP.', err);
-    return 'mongodb://127.0.0.1:27017'; // Use localhost IP when running locally
+    return 'mongodb://127.0.0.1:27017'; // Fallback to localhost IP if error occurs
   }
 }
 
 (async () => {
-  const mongoUrl = await getMongoUrl();
+  const mongoUrl = await getMongoUrl() //'mongodb://127.0.0.1:27017';
   const dbName = 'fingerprintDB';
   const collectionName = 'records';
 
@@ -93,7 +105,7 @@ async function getMongoUrl() {
           try {
             const payload = JSON.parse(body);
             const { fingerprint, userAgent, timeStamp } = payload;
-
+            console.log(fingerprint)
             if (!fingerprint || !userAgent) {
               res.writeHead(400, { 'Content-Type': 'application/json' });
               return res.end(JSON.stringify({ error: 'Fingerprint and userAgent are required' }));
