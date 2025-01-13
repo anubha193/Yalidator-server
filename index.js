@@ -51,6 +51,7 @@ async function getMongoUrl() {
     // Otherwise, fetch the public IP for remote servers
     const publicIp = await getPublicIP();
     console.log("publicIP = "+ publicIp);
+    console.log(`mongodb://${publicIp}:27017`);
     return `mongodb://${publicIp}:27017`; // Use public IP if available
   } catch (err) {
     console.error('Failed to fetch public IP. Falling back to local IP.', err);
@@ -62,6 +63,7 @@ async function getMongoUrl() {
   const mongoUrl = await getMongoUrl() //'mongodb://127.0.0.1:27017';
   const dbName = 'fingerprintDB';
   const collectionName = 'records';
+  console.log(mongoUrl);
 
   const client = new MongoClient(mongoUrl);
   let db, collection;
