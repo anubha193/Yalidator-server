@@ -65,6 +65,8 @@ async function getMongoUrl() {
   const collectionName = 'records';
 
   const client = new MongoClient(mongoUrl, {
+    useNewUrlParser: true,
+  useUnifiedTopology: true,
     ssl: true
   });
   let db, collection;
