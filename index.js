@@ -64,7 +64,9 @@ async function getMongoUrl() {
   const dbName = 'fingerprintDB';
   const collectionName = 'records';
 
-  const client = new MongoClient(mongoUrl);
+  const client = new MongoClient(mongoUrl, {
+    ssl: true
+  });
   let db, collection;
 
   async function initMongoDB() {
