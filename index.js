@@ -15,7 +15,7 @@ const corsMiddleware = cors({
 // get Country Name from IP
 async function getCountryFromIP(ip) {
   const apiKey = '4801bd01349fab'; // Sign up to get an API key
-  const response = await fetch(`https://ipinfo.io/${ip}/geo?token=4801bd01349fab`);
+  const response = await fetch(`https://ipinfo.io/${ip}/geo?token=${apiKey}`);
   const data = await response.json();
   return data.country; // Returns the country code, e.g., "US"
 }
@@ -69,7 +69,7 @@ async function getMongoUrl() {
 }
 
 (async () => {
-  const mongoUrl = 'mongodb+srv://User123:Anubha88%40%40%23@cluster0.fu8ny.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+  const mongoUrl = 'mongodb+srv://User123:c5ERP55WbEsskYCE@cluster0.fu8ny.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
   const dbName = 'fingerprintDB';
   const collectionName = 'records';
 
@@ -152,9 +152,3 @@ async function getMongoUrl() {
     });
   });
 })();
-
-
-
-
-
-
