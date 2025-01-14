@@ -3,6 +3,8 @@ const { MongoClient } = require('mongodb');
 const cors = require('cors');
 const os = require('os');
 const https = require('https');
+const fetch = require('node-fetch');
+
 
 const corsMiddleware = cors({
   origin: '*',
@@ -10,6 +12,13 @@ const corsMiddleware = cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 });
 
+// get Country Name from IP
+async function getCountryFromIP(ip) {
+  const apiKey = '4801bd01349fab'; // Sign up to get an API key
+  const response = await fetch(`https://ipinfo.io/${ip}/geo?token=4801bd01349fab`);
+  const data = await response.json();
+  return data.country; // Returns the country code, e.g., "US"
+}
 // Function to get the local IP address of the server
 function getLocalIP() {
   const interfaces = os.networkInterfaces();
@@ -60,7 +69,7 @@ async function getMongoUrl() {
 }
 
 (async () => {
-  const mongoUrl = 'mongodb+srv://User123:c5ERP55WbEsskYCE@cluster0.fu8ny.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+  const mongoUrl = 'mongodb+srv://User123:Anubha88%40%40%23@cluster0.fu8ny.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
   const dbName = 'fingerprintDB';
   const collectionName = 'records';
 
@@ -98,6 +107,9 @@ async function getMongoUrl() {
 
       let clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
       console.log(clientIp);
+      getCountryFromIP(clientIp).then(country => {
+        console.log(`Country Name: ${country}`);
+      });
 
       if (req.method === 'POST') {
         let body = '';
@@ -140,3 +152,9 @@ async function getMongoUrl() {
     });
   });
 })();
+
+
+
+
+
+
