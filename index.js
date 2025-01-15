@@ -111,7 +111,7 @@ async function getMongoUrl() {
       }
 
       let clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-      console.log(clientIp);
+      console.log("client IP - "+clientIp);
       getCountryFromIP(clientIp).then(country => {
         console.log(`Country Name: ${country}`);
       });
