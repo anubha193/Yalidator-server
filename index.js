@@ -155,7 +155,6 @@ async function getMongoUrl() {
             }
 
             const existingRecord = await collection.findOne({ fingerprint });
-
             if (existingRecord) {
               if (existingRecord.ip !== clientIp) {
                 await collection.insertOne({
@@ -163,6 +162,7 @@ async function getMongoUrl() {
                   ip: clientIp,
                   userAgent,
                   timeStamp,
+                  country
                 });
               }
             } else {
@@ -171,6 +171,7 @@ async function getMongoUrl() {
                 ip: clientIp,
                 userAgent,
                 timeStamp,
+                country
               });
             }
 
