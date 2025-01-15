@@ -14,10 +14,15 @@ const corsMiddleware = cors({
 
 // get Country Name from IP
 async function getCountryFromIP(ip) {
-  const apiKey = '4801bd01349fab'; // Sign up to get an API key
+  try {
+    const apiKey = '4801bd01349fab'; // Sign up to get an API key
   const response = await fetch(`https://ipinfo.io/${ip}/geo?token=${apiKey}`);
   const data = await response.json();
+  console.log(data);
   return data.country; // Returns the country code, e.g., "US"
+  } catch (error) {
+    console.log(error);
+  }
 }
 // Function to get the local IP address of the server
 function getLocalIP() {
