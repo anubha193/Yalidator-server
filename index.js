@@ -129,10 +129,10 @@ async function getMongoUrl() {
       getCountryFromIP(clientIp).then((country) => {
         if (country) {
           console.log(`Country Name: ${country}`);
-        } else {
-          console.error("Failed to retrieve country for IP:", clientIp);
-        }
-      });
+      //   } else {
+      //     console.error("Failed to retrieve country for IP:", clientIp);
+      //   }
+      // });
 
       if (req.method === "POST") {
         let body = "";
@@ -192,6 +192,10 @@ async function getMongoUrl() {
         res.writeHead(405, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ error: "Method not allowed" }));
       }
+    } else {
+      console.error("Failed to retrieve country for IP:", clientIp);
+    }
+  });
     });
   });
 })();
